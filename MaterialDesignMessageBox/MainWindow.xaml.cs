@@ -22,7 +22,28 @@ namespace MaterialDesignMessageBox
     public partial class MDMessageBox : Window
     {
         public string Message { get; set; }
-        UIElement MessageTypeSymbol { get; set; }
+        UIElement MessageTypeSymbol
+        {
+            get
+            {
+                switch (MessageType)
+                {
+                    case MessageTypes.Alert:
+                        return new PackIcon
+                        { Kind = PackIconKind.AlertCircle };
+                    case MessageTypes.Info:
+                        return new PackIcon
+                        { Kind = PackIconKind.Information };
+                    case MessageTypes.Error:
+                        return new PackIcon
+                        { Kind = PackIconKind.CloseCircle };
+                    case MessageTypes.Critical:
+                        return new PackIcon
+                        { Kind = PackIconKind.Exclamation };
+                }
+                return new PackIcon();
+            }
+        }
         public enum MessageTypes
         {
             Error,
@@ -30,36 +51,12 @@ namespace MaterialDesignMessageBox
             Alert,
             Critical
         }
-        public MessageTypes MessageType
-        {
-            get { return MessageType; }
-            set
-            {
-                switch (MessageType)
-                {
-                    case MessageTypes.Alert:
-                        MessageTypeSymbol = new PackIcon
-                        { Kind = PackIconKind.AlertCircle };
-                        break;
-                    case MessageTypes.Info:
-                        MessageTypeSymbol = new PackIcon
-                        { Kind = PackIconKind.Information };
-                        break;
-                    case MessageTypes.Error:
-                        MessageTypeSymbol = new PackIcon
-                        { Kind = PackIconKind.CloseCircle };
-                        break;
-                    case MessageTypes.Critical:
-                        MessageTypeSymbol = new PackIcon
-                        { Kind = PackIconKind.Exclamation };
-                        break;
-                }
-                return;
-            }
-        }
+        public MessageTypes MessageType { get; set; }
         public MDMessageBox()
         {
             InitializeComponent();
+            (MessageTypeSymbol as PackIcon).Margin = new Thickness(20);
+            MessageGrid.Children.Add(MessageTypeSymbol);
         }
     }
 }
