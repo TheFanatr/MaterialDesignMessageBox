@@ -30,16 +30,28 @@ namespace MaterialDesignMessageBox
                 {
                     case MessageTypes.Alert:
                         return new PackIcon
-                        { Kind = PackIconKind.AlertCircle };
+                        {
+                            Kind = PackIconKind.AlertCircle,
+                            Margin = new Thickness(10)
+                        };
                     case MessageTypes.Info:
                         return new PackIcon
-                        { Kind = PackIconKind.Information };
+                        {
+                            Kind = PackIconKind.Information,
+                            Margin = new Thickness(10)
+                        };
                     case MessageTypes.Error:
                         return new PackIcon
-                        { Kind = PackIconKind.CloseCircle };
+                        {
+                            Kind = PackIconKind.CloseCircle,
+                            Margin = new Thickness(10)
+                        };
                     case MessageTypes.Critical:
                         return new PackIcon
-                        { Kind = PackIconKind.Exclamation };
+                        {
+                            Kind = PackIconKind.EmoticonSad,
+                            Margin = new Thickness(10)
+                        };
                 }
                 return new PackIcon();
             }
@@ -55,8 +67,23 @@ namespace MaterialDesignMessageBox
         public MDMessageBox()
         {
             InitializeComponent();
-            (MessageTypeSymbol as PackIcon).Margin = new Thickness(20);
+        }
+        public void Start()
+        {
             MessageGrid.Children.Add(MessageTypeSymbol);
+            Show();
+        }
+        public static void Start(string Message)
+        {
+            (new MDMessageBox { Message = Message }).Start();
+        }
+        public static void Start(string Message, MessageTypes MessageType)
+        {
+            (new MDMessageBox { Message = Message, MessageType = MessageType }).Start();
+        }
+        public static void Start(string Message, MessageTypes MessageType, string Title)
+        {
+            (new MDMessageBox { Message = Message, MessageType = MessageType, Title = Title }).Start();
         }
     }
 }

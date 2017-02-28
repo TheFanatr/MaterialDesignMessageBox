@@ -24,12 +24,7 @@ namespace MaterialDesignMessageBox
             InitializeComponent();
             Button testButton = new Button { Content = "Test MDMessageBox" };
             // TODO: Check that the variables in MDMessageBox can be set through initializing the MDMessageBox with the "curly brackets method".
-            MDMessageBox message = new MDMessageBox()
-            {
-                MessageType = MDMessageBox.MessageTypes.Info
-            };
-
-            testButton.Click += (s, e) => { };
+            testButton.Click += (s, e) => MDMessageBox.Start("Apples", MDMessageBox.MessageTypes.Critical);
             grid.Children.Add(testButton);
         }
     }
